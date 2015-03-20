@@ -1,15 +1,17 @@
-# hydra-jetty
+# hydra-jetty-lyo
 
-This is a copy of jetty with the needed applications for running Hydra.  These include two java-based applications:
+This is a copy of jetty with applications for running Hydra.  These include two java-based applications:
 
-* [Fedora repository](https://github.com/futures/fcrepo4)
+* [Patched Lyo repository](https://github.com/barmintor/lyo)
 * [Solr](http://lucene.apache.org/solr/)
 
 ## Included Versions
 
 * jetty: 8.1.16
 * solr: 4.10.3
-* fedora: 4.1.0
+* lyo: 3.0.0-SNAPSHOT patched for:
+ * HTTP PATCH Sparql-Update for RdfResource
+ * 410 (GONE) for requests to deleted resources
 
 ## Usage
 
@@ -19,8 +21,8 @@ This is a copy of jetty with the needed applications for running Hydra.  These i
 
 ### Manual
   
-    git clone https://github.com/projecthydra/hydra-jetty
-    cd hydra-jetty
+    git clone https://github.com/barmintor/hydra-jetty-lyo
+    cd hydra-jetty-lyo
     java -Xmx512m -XX:MaxPermSize=512m -jar start.jar
 
 You can also change the port jetty starts on by editing the file etc/jetty.xml and changing this line to indicate a different port number:
@@ -43,9 +45,9 @@ When jetty is finished initializing itself, Solr is available at
 
 * [http://localhost:8983/solr/](http://localhost:8983/solr/)
 
-and Fedora is available at
+and Lyo is available at
 
-* [http://localhost:8983/fedora/](http://localhost:8983/fedora/)
+* [http://localhost:8983/ldp/](http://localhost:8983/ldp/)
 * basic authorization is enabled an requires the username/password `fedoraAdmin/fedoraAdmin`
 * this is configured under [jetty-users.properties](resources/jetty-users.properties)
 
@@ -61,9 +63,3 @@ Solr is updated by downloading the latest from [Lucene](http://lucene.apache.org
 `example` directory.  Updating is a process of replacing the jar files as well as the solr.war and start.jar files.  Note that the
 example from Lucene does not include the start.ini file.
 
-## Fedora Migration
-
-For tesing migration from Fedora version 3 to 4, the `fedora-4/migration` branch has both Fedora 3 and Fedora 4 installed, along with Solr, and is available
-via this url:
-
-    https://github.com/projecthydra/hydra-jetty/archive/fedora-4/migrate.zip
